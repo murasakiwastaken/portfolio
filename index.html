@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Murasaki - Portfolio</title>
+    <title>murasaki - Portfolio</title>
     <style>
         /* Reset and Base Styles */
         * {
@@ -14,8 +14,9 @@
         }
 
         body {
-            background-color: #f5f5f7;
-            color: #1d1d1f;
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
         }
 
         /* Navigation */
@@ -23,10 +24,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(20px);
             padding: 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             z-index: 100;
         }
 
@@ -41,13 +41,11 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #1d1d1f;
+            color: #fff;
             text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .logo:hover {
-            color: #0071e3;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 1s ease forwards;
         }
 
         /* Hero Section */
@@ -58,44 +56,31 @@
             justify-content: center;
             text-align: center;
             padding: 2rem;
-            background: linear-gradient(90deg, #f5f5f7 50%, #e5e5ea 50%);
         }
 
         .hero-content {
             max-width: 800px;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeIn 1s ease forwards;
+            animation: fadeIn 1.5s ease forwards;
         }
 
         /* Sections */
         .section {
-            padding: 4rem 2rem;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateX(50px);
+            transition: opacity 1s ease, transform 1s ease;
         }
 
         .section.visible {
             opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background-color: #0071e3;
-            color: white;
-            text-decoration: none;
-            border-radius: 2rem;
-            transition: all 0.3s ease;
-            margin-top: 2rem;
-        }
-
-        .btn:hover {
-            background-color: #0077ed;
-            transform: translateY(-2px);
+            transform: translateX(0);
         }
 
         /* Animations */
@@ -110,10 +95,50 @@
             }
         }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            text-align: center;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.6s ease;
             margin-top: 2rem;
+        }
+
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Project Cards */
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            margin: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Responsive Design */
@@ -129,32 +154,32 @@
     <nav class="nav">
         <div class="nav-content">
             <a href="#" class="logo">murasaki</a>
-            <div class="nav-links">
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Hi, I'm murasaki.</h1>
+            <h1>murasaki</h1>
             <p>Creative Developer & Designer</p>
-            <a href="#projects" class="btn">View My Work</a>
+            <a href="#projects" class="btn">Explore</a>
         </div>
     </section>
 
     <section id="projects" class="section">
-        <h2>Featured Projects</h2>
-        <div class="project-grid">
-            <!-- Add your project cards here -->
+        <div class="project-card">
+            <h2>Project One</h2>
+            <p>A description of your amazing project</p>
+        </div>
+        <div class="project-card">
+            <h2>Project Two</h2>
+            <p>Another description of your work</p>
         </div>
     </section>
 
     <section id="contact" class="section">
         <h2>Get in Touch</h2>
         <p>Let's create something amazing together.</p>
-        <!-- Add your contact form here -->
+        <a href="#" class="btn">Contact Me</a>
     </section>
 
     <script>
@@ -172,13 +197,17 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
+        document.querySelectorAll('.section, .project-card').forEach(element => {
+            observer.observe(element);
         });
+
+        // Add subtle sound effect on element load
+        const audio = new Audio('data:audio/wav;base64,//uQRAAAAWMSLAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=');
+        audio.play().catch(() => {});
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
