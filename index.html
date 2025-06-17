@@ -228,8 +228,8 @@
   <div class="main">
     <section class="hero">
       <h1>murasaki</h1>
-      <p>Creative Developer &amp; Designer</p>
-      <a href="#projects" class="btn">Explore Projects</a>
+      <p>(not a very good) developer &amp; animator</p>
+      <a href="#projects" class="btn">explore my works</a>
     </section>
 
     <section id="projects" style="width:100%;margin:0 auto;padding:0 0 3rem 0;">
@@ -247,25 +247,25 @@
     </section>
 
     <section id="contact" class="contact-section">
-      <div class="section-title" style="margin-bottom: 1em;">Get in Touch</div>
+      <div class="section-title" style="margin-bottom: 1em;">get in touch with me!</div>
       <p>let's make something (decent)</p>
-      <a href="murawastaken@gmail.com" class="btn">message me.</a>
+      <a href="mailto:murawastaken@gmail.com" class="btn">message me.</a>
     </section>
   </div>
   <script>
-    // Intersection Observer for fade-in effect
-    const observerOptions = { threshold: 0.11, rootMargin: "0px" };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
+  // Intersection Observer for fade-in effect
+      const observerOptions = { threshold: 0.11, rootMargin: "0px" };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
 
-    document.querySelectorAll('.project-card, .contact-section').forEach(element => {
-      observer.observe(element);
-    });
+      document.querySelectorAll('.project-card, .contact-section').forEach(element => {
+        observer.observe(element);
+      });
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
