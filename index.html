@@ -3,21 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>murasaki - Portfolio</title>
+  <title>murasaki - portfolio</title>
   <style>
-    /* Apple System Font Stack */
-    html {
+    html, body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       font-size: 18px;
-      background: linear-gradient(135deg, #f6f7f9 0%, #e9ebef 100%);
+      background: #fff;
       color: #111;
       scroll-behavior: smooth;
+      text-transform: lowercase !important;
     }
-    body {
+    body, .site-transition {
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      letter-spacing: 0.01em;
+      box-sizing: border-box;
+    }
+    .site-transition {
+      background: #fff;
+      color: #111;
+      transition: background 1.3s cubic-bezier(.4,0,.2,1), color 1.3s cubic-bezier(.4,0,.2,1);
+      min-height: 100vh;
+    }
+    body.transition-complete .site-transition {
+      background: #111;
+      color: #fff;
+    }
+    /* Fade-in for main containers */
+    .fade-in {
+      opacity: 0;
+      transition: opacity 1.1s cubic-bezier(.4,0,.2,1);
+    }
+    body.transition-complete .fade-in {
+      opacity: 1;
     }
 
     /* Navigation */
@@ -34,6 +52,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: background 1.3s, box-shadow 1.3s;
+    }
+    body.transition-complete .nav {
+      background: rgba(17,17,17,0.85);
+      box-shadow: 0 1px 0 0 #222;
     }
     .logo {
       font-weight: 700;
@@ -44,11 +67,15 @@
       opacity: 1;
       transition: color 0.2s;
     }
+    body.transition-complete .logo {
+      color: #fff;
+    }
     .logo:hover {
       color: #86868b;
     }
-
-    /* Main Content Wrapper */
+    body.transition-complete .logo:hover {
+      color: #aaa;
+    }
     .main {
       margin-top: 72px;
       display: flex;
@@ -56,7 +83,6 @@
       align-items: center;
       width: 100%;
     }
-
     /* Hero Section */
     .hero {
       display: flex;
@@ -72,7 +98,7 @@
     .hero h1 {
       font-size: 3.5rem;
       font-weight: 800;
-      color: #111;
+      color: inherit;
       margin-bottom: 0.4em;
       letter-spacing: -0.02em;
       line-height: 1.1;
@@ -82,6 +108,10 @@
       color: #555;
       font-weight: 400;
       margin-bottom: 2em;
+      transition: color 1.3s;
+    }
+    body.transition-complete .hero p {
+      color: #ccc;
     }
     .btn {
       display: inline-block;
@@ -103,16 +133,22 @@
       color: #f5f5f7;
       transform: translateY(-2px) scale(1.025);
     }
-
+    body.transition-complete .btn {
+      background: linear-gradient(90deg, #eee 0%, #444 100%);
+      color: #111;
+    }
+    body.transition-complete .btn:hover {
+      background: linear-gradient(90deg, #fff 0%, #666 100%);
+      color: #222;
+    }
     /* Section Titles */
     .section-title {
       font-size: 2rem;
       font-weight: 700;
-      color: #1d1d1f;
+      color: inherit;
       margin-bottom: 1.5em;
       letter-spacing: -0.01em;
     }
-
     /* Projects Section */
     .projects-container {
       display: flex;
@@ -134,7 +170,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      transition: box-shadow 0.23s, transform 0.23s;
+      transition: box-shadow 0.23s, transform 0.23s, background 1.3s, color 1.3s, border 1.3s;
       border: 1px solid #e5e5ea;
       opacity: 0;
       transform: translateY(32px);
@@ -144,10 +180,15 @@
       transform: translateY(0);
       transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
     }
+    body.transition-complete .project-card {
+      background: rgba(30,30,30,0.93);
+      color: #fff;
+      border: 1px solid #222;
+    }
     .project-card h2 {
       font-size: 1.3rem;
       font-weight: 700;
-      color: #111;
+      color: inherit;
       margin-bottom: 0.7em;
       letter-spacing: -0.01em;
     }
@@ -156,12 +197,15 @@
       font-size: 1rem;
       font-weight: 400;
       margin-bottom: 0;
+      transition: color 1.3s;
+    }
+    body.transition-complete .project-card p {
+      color: #ccc;
     }
     .project-card:hover {
       box-shadow: 0 16px 48px 0 rgba(0,0,0,0.18);
       transform: translateY(-4px) scale(1.022);
     }
-
     /* Contact Section */
     .contact-section {
       width: 100%;
@@ -176,17 +220,25 @@
       margin-bottom: 50px;
       opacity: 0;
       transform: translateY(32px);
-      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1), background 1.3s, color 1.3s, border 1.3s;
     }
     .contact-section.visible {
       opacity: 1;
       transform: translateY(0);
     }
+    body.transition-complete .contact-section {
+      background: rgba(30,30,30,0.93);
+      color: #fff;
+      border: 1px solid #222;
+    }
     .contact-section p {
       color: #555;
       margin-bottom: 2em;
+      transition: color 1.3s;
     }
-
+    body.transition-complete .contact-section p {
+      color: #ccc;
+    }
     /* Responsive Design */
     @media (max-width: 900px) {
       .projects-container {
@@ -213,61 +265,64 @@
         min-width: unset;
       }
     }
-
-    /* Animation Keyframes */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <a href="#" class="logo">murasaki</a>
-  </nav>
-  <div class="main">
-    <section class="hero">
-      <h1>murasaki</h1>
-      <p>(not a very good) developer &amp; animator</p>
-      <a href="#projects" class="btn">explore my works</a>
-    </section>
+  <div class="site-transition">
+    <nav class="nav fade-in">
+      <a href="#" class="logo">murasaki</a>
+    </nav>
+    <div class="main fade-in">
+      <section class="hero">
+        <h1>murasaki</h1>
+        <p>(not a very good) developer &amp; animator</p>
+        <a href="#projects" class="btn">explore my works</a>
+      </section>
 
-    <section id="projects" style="width:100%;margin:0 auto;padding:0 0 3rem 0;">
-      <div class="section-title">Projects</div>
-      <div class="projects-container">
-        <div class="project-card">
-          <h2>Universally Stolen Battlegrounds</h2>
-          <p>the name tells you it well</p>
+      <section id="projects" style="width:100%;margin:0 auto;padding:0 0 3rem 0;">
+        <div class="section-title">projects</div>
+        <div class="projects-container">
+          <div class="project-card">
+            <h2>universally stolen battlegrounds</h2>
+            <p>the name tells you it well</p>
+          </div>
+          <div class="project-card">
+            <h2>fiction battlegrounds (fake.)</h2>
+            <p>a fake copy of fiction battlegrounds.</p>
+          </div>
         </div>
-        <div class="project-card">
-          <h2>Fiction Battlegrounds (fake.)</h2>
-          <p>A fake copy of Fiction Battlegrounds.</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="contact" class="contact-section">
-      <div class="section-title" style="margin-bottom: 1em;">get in touch with me!</div>
-      <p>let's make something (decent)</p>
-      <a href="mailto:murawastaken@gmail.com" class="btn">message me.</a>
-    </section>
+      <section id="contact" class="contact-section">
+        <div class="section-title" style="margin-bottom: 1em;">get in touch with me!</div>
+        <p>let's make something (decent)</p>
+        <a href="mailto:murawastaken@gmail.com" class="btn">message me.</a>
+      </section>
+    </div>
   </div>
   <script>
-  // Intersection Observer for fade-in effect
-      const observerOptions = { threshold: 0.11, rootMargin: "0px" };
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, observerOptions);
+    // Transition to dark and fade in content
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.body.classList.add('transition-complete');
+      }, 650); // Adjust delay as desired
+    });
 
-      document.querySelectorAll('.project-card, .contact-section').forEach(element => {
-        observer.observe(element);
+    // Intersection Observer for fade-in effect on cards and contact section
+    const observerOptions = { threshold: 0.11, rootMargin: "0px" };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
+    }, observerOptions);
 
-    // Smooth scroll
+    document.querySelectorAll('.project-card, .contact-section').forEach(element => {
+      observer.observe(element);
+    });
+
+    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
